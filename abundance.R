@@ -26,15 +26,17 @@ aka_order <- c("Med14",
 pivoted$aka <- factor(pivoted$aka, levels = aka_order)
 
 p <- ggplot(pivoted, aes(x = aka, y = quant, fill = module)) +
-    stat_boxplot(geom = "errorbar", width = 0.4) +
+    stat_boxplot(geom = "errorbar", width = 0.4, na.rm = T, color = "black") +
     geom_jitter(position = position_jitter(height = 0, 
-                                           width = 0.25), 
+                                           width = 0.3), 
                 size = 1, 
                 na.rm = T) +
     geom_boxplot(width = 0.75, 
                  alpha = 0.5, 
                  outlier.size = 1, 
                  outlier.alpha = 1,
+                 outlier.color = "black",
+                 color = "black",
                  na.rm = T) +
     theme_classic() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
@@ -46,4 +48,4 @@ p <- ggplot(pivoted, aes(x = aka, y = quant, fill = module)) +
     ylab("Molecules per cell") +
     scale_fill_viridis_d() 
 
-ggsave(p, filename = "abundance_boxplot.png", width = 8, height = 6, units = "in")
+ggsave(p, filename = "abundance_boxplot.png", width = 9, height = 6, units = "in")
