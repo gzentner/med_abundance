@@ -25,13 +25,13 @@ module_order <- c("scaffold", "head", "middle", "tail")
 abundance <- abundance %>%
   select(!c(1,3:6)) %>%
   distinct %>%
-  inner_join(med, by=c(`Standard Name`="gene")) %>%
+  inner_join(med, by = c(`Standard Name` = "gene")) %>%
   mutate(
-    module=factor(module, levels=module_order),
-    `Standard Name`=factor(`Standard Name`, levels=gene_order),
-    aka=factor(aka, levels=aka_order)
+    module = factor(module, levels = module_order),
+    `Standard Name` = factor(`Standard Name`, levels = gene_order),
+    aka = factor(aka, levels = aka_order)
   ) %>%
-  pivot_longer(!c(`Standard Name`, aka, module), names_to="sample", values_to="quant")
+  pivot_longer(!c(`Standard Name`, aka, module), names_to = "sample", values_to = "quant")
 
 ## Plot data.
 
@@ -58,6 +58,6 @@ p <- ggplot(abundance, aes(x = aka, y = quant, fill = module)) +
 
 ggsave(
   p, filename = "abundance_boxplot.png", width = 9, height = 6,
-  units = "in", dpi=300, type="cairo"
+  units = "in", dpi = 300, type = "cairo"
 )
 
